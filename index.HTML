@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="zh-CN" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>死亡荒原，叛徒和追兵 - 官方宣传页</title>
+    <!-- Tailwind CSS (CDN) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;700;900&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'body':['"Noto Sans SC"', 'sans-serif'],
+                        'title':['"Noto Sans SC"', 'sans-serif']
+                    },
+                    colors: {
+                        neon: {
+                            orange: '#ff5e00',
+                            cyan: '#00f3ff',
+                            green: '#00ff66',
+                            red: '#ff003c'
+                        },
+                        dark: {
+                            900: '#070709',
+                            800: '#121216',
+                            700: '#1c1c21'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        body {
+            background-color: #070709;
+            color: #e5e7eb;
+            overflow-x: hidden;
+        }
+        .noise-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 50;
+            pointer-events: none;
+            opacity: 0.04;
+            background-image: url('data:image/svg+xml,%3Csvg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"%3E%3Cfilter id="noise"%3E%3CfeTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="3" stitchTiles="stitch"/%3E%3C/filter%3E%3Crect width="100%25" height="100%25" filter="url(%23noise)"/%3E%3C/svg%3E');
+        }
+        .scanlines {
+            position: fixed;
+            inset: 0;
+            z-index: 49;
+            pointer-events: none;
+            background: linear-gradient(to bottom, transparent 50%, rgba(0, 0, 0, 0.25) 51%);
+            background-size: 100% 4px;
+        }
+        .glow-text-orange { text-shadow: 0 0 25px rgba(255, 94, 0, 0.6); }
+        .glow-text-cyan { text-shadow: 0 0 20px rgba(0, 243, 255, 0.5); }
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .glass-panel {
+            background: rgba(18, 18, 22, 0.65);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+        }
+        .highlight-line {
+            position: relative;
+            display: inline-block;
+        }
+        .highlight-line::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 2px;
+            width: 100%;
+            height: 30%;
+            background-color: rgba(255, 94, 0, 0.4);
+            z-index: -1;
+            transform: skewX(-15deg);
+        }
+    </style>
+</head>
+<body class="font-body antialiased selection:bg-neon-orange selection:text-white">
+
+    <div class="noise-overlay"></div>
+    <div class="scanlines"></div>
+
+    <header class="relative min-h-screen flex items-center justify-center pt-20 pb-32 px-6 overflow-hidden">
+        <div class="absolute inset-0 z-0">
+            <img src="https://placehold.co/1920x1080/0a0a0c/4a4a55?text=Wasteland+Background" 
+                 alt="废土荒原背景图" 
+                 class="w-full h-full object-cover opacity-30 mix-blend-luminosity scale-105 transform animate-[pulse_10s_ease-in-out_infinite]">
+            <div class="absolute inset-0 bg-gradient-to-b from-dark-900/40 via-dark-900/60 to-dark-900"></div>
+        </div>
+
+        <div class="relative z-10 max-w-5xl mx-auto w-full reveal active">
+            <div class="text-center mb-16">
+                <!-- 拆分两行居中排版 -->
+                <h1 class="font-title font-black text-5xl md:text-7xl lg:text-8xl text-white glow-text-orange tracking-tight leading-snug mb-8">
+                    <span class="block">死亡荒原</span>
+                    <span class="block">叛徒和追兵</span>
+                </h1>
+            </div>
+
+            <div class="glass-panel p-8 md:p-12 rounded-2xl md:rounded-[2rem] border-l-4 border-l-neon-orange relative overflow-hidden">
+                <div class="absolute top-0 right-0 w-32 h-32 bg-neon-orange/10 blur-[50px] rounded-full"></div>
+                
+                <h2 class="font-title font-black text-3xl md:text-5xl text-white mb-8 flex items-center gap-4">
+                    <span class="w-10 h-1 bg-neon-orange"></span>
+                    故事背景
+                </h2>
+                
+                <div class="space-y-6 text-lg md:text-xl leading-relaxed md:leading-loose text-gray-300">
+                    <p>那场被称为“第三次世界大战”的浩劫已经绵延了三百年。起初，这只是国与国之间的战斗；紧接着，人工智能的全面觉醒让战火升级，变成了国与国与AI间的战斗；随着天外异星文明的降临，又变成了国与国与AI与外星人之间的战斗。彻底将这颗星球彻底推入了一场超越人类想象极限的四方混战。</p>
+                    <p>如今，你们正跋涉在一片广阔而凶险的死亡荒原之上。关于这片土地的传言众说纷纭：有人说这里是昔日核爆的中心，有人坚信这是智械叛乱的最初摇篮，还有人发誓曾在这里见过异星舰队的前哨。不管真相如何，这里的危险毋庸置疑。</p>
+                    <p>你们并非来此探险，而是为了活下去。作为背弃了旧有阵营的流亡者，一支强大的追兵正死死咬在你们身后。但幸运的是，你们的手中掌握着一个秘密—在这片荒原之中，隐藏着一条通往真正“安全区”的隐秘道路。</p>
+                    <p class="text-white font-bold text-xl md:text-2xl pt-4 border-t border-white/10 highlight-line">
+                        甩掉追兵，穿过死亡荒原，去夺取你们的生机与自由。
+                    </p>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <section class="py-24 px-6 relative z-10">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-20 reveal">
+                <h2 class="font-title font-black text-4xl md:text-6xl text-white glow-text-cyan mb-6 tracking-wide">用科技替代魔法</h2>
+                <p class="text-lg md:text-xl text-gray-400 max-w-4xl mx-auto leading-relaxed">
+                    在本次战役中，所有的魔法实际上都是科技。当你的角色“施法”时，需要思考这些效果在这个世界中如何具体呈现。每次他们使用武器时，也要考虑如何将其与天马行空的科技相结合。
+                </p>
+            </div>
+
+            <div class="space-y-12 md:space-y-24">
+                <div class="flex flex-col lg:flex-row gap-8 lg:gap-16 items-center reveal glass-panel p-6 md:p-8 rounded-3xl border-l-4 border-l-neon-cyan/50">
+                    <div class="w-full lg:w-1/2 relative rounded-2xl overflow-hidden group shadow-2xl">
+                        <div class="absolute inset-0 bg-neon-cyan/10 group-hover:bg-transparent transition duration-500 z-10 pointer-events-none"></div>
+                        <img src="https://i.ibb.co/svYjBJkr/image.jpg" 
+                             alt="Cyberpunk Tech" 
+                             class="w-full aspect-square md:aspect-[4/3] object-cover object-center transform group-hover:scale-105 transition duration-700">
+                    </div>
+                    <div class="w-full lg:w-1/2">
+                        <p class="text-lg md:text-xl leading-relaxed text-gray-300">
+                            <span class="text-neon-cyan font-black text-2xl md:text-3xl block mb-4 font-title tracking-wide">- 赛博朋克：</span>
+                            你的角色也许进行了大量的义体改造，手臂能够裂开弹出致命的螳螂刀，皮肤下方植入防弹纤维，甚至可以开启“光学迷彩”在暗影中实现完美隐身。又或者可以借助黑客技术骇入别人的机械造物与义体，让敌人的义眼瞬间致盲，武器走火，义体过载自燃，甚至直接篡改其神经芯片，强迫其“自我了断”。当然，这一切还少不了雨夜中闪烁的冰冷霓虹灯影。
+                        </p>
+                    </div>
+                </div>
+
+                <div class="flex flex-col lg:flex-row-reverse gap-8 lg:gap-16 items-center reveal glass-panel p-6 md:p-8 rounded-3xl border-r-4 border-r-neon-orange/50">
+                    <div class="w-full lg:w-1/2 relative rounded-2xl overflow-hidden group shadow-2xl">
+                        <div class="absolute inset-0 bg-neon-orange/10 group-hover:bg-transparent transition duration-500 z-10 pointer-events-none"></div>
+                        <img src="https://i.ibb.co/KzmGrrmn/AAA.png" 
+                             alt="Atompunk Power Armor" 
+                             class="w-full aspect-square md:aspect-[4/3] object-cover object-center transform group-hover:scale-105 transition duration-700">
+                    </div>
+                    <div class="w-full lg:w-1/2">
+                        <p class="text-lg md:text-xl leading-relaxed text-gray-300">
+                            <span class="text-neon-orange font-black text-2xl md:text-3xl block mb-4 font-title tracking-wide">- 原子朋克：</span>
+                            你的角色也许穿着笨重却坚不可摧的动力装甲，伴随着微型核聚变核心的轰鸣在战场上粗暴碾压，闪烁的真空管与流线型的复古射线枪构成了你最时髦的外观。又或者可以在战斗中扛起微型核弹发射器带来“核平”，用等离子武器将敌人烧成一滩绿色的发光粘液，甚至依靠猛扎粗糙的生化药剂和高强度辐射带来的血肉变异，化身为不知疼痛的狂战士。当然，这一切还少不了盖革计数器疯狂的咔咔声与一朵冉冉升起的微型蘑菇云。
+                        </p>
+                    </div>
+                </div>
+
+                <div class="flex flex-col lg:flex-row gap-8 lg:gap-16 items-center reveal glass-panel p-6 md:p-8 rounded-3xl border-l-4 border-l-yellow-600/50">
+                    <div class="w-full lg:w-1/2 relative rounded-2xl overflow-hidden group shadow-2xl">
+                        <div class="absolute inset-0 bg-yellow-600/10 group-hover:bg-transparent transition duration-500 z-10 pointer-events-none"></div>
+                        <img src="https://i.ibb.co/j9fYt7Lj/image.jpg" 
+                             alt="Steampunk Gear" 
+                             class="w-full aspect-square md:aspect-[4/3] object-cover object-center transform group-hover:scale-105 transition duration-700">
+                    </div>
+                    <div class="w-full lg:w-1/2">
+                        <p class="text-lg md:text-xl leading-relaxed text-gray-300">
+                            <span class="text-yellow-500 font-black text-2xl md:text-3xl block mb-4 font-title tracking-wide">- 蒸汽朋克：</span>
+                            你的角色也许穿着考究的维多利亚燕尾服与皮革束腰，戴着标志性的黄铜护目镜，装备着由精密齿轮与微型锅炉驱动的机械手臂，伴随着高压气阀的嘶鸣爆发出惊人的力量。又或者可以端起沉重的手摇式加特林机枪倾泻黄铜弹壳，用噼啪作响的特斯拉电弧枪将对手电焦，甚至转动手杖上的机关弹出暗藏的弹簧利刃，操控上满发条的致命机关兽将敌人撕碎。当然，这一切还少不了黄铜齿轮咬合的咔哒声，以及高压气阀喷涌而出的滚烫白雾。
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-16 text-center reveal">
+                <p class="text-xl md:text-2xl text-white font-bold bg-dark-800/80 inline-block px-8 py-4 rounded-full border border-white/10 shadow-[0_0_15px_rgba(255,255,255,0.1)]">
+                    异星科技，纳米朋克又或者其他天马行空的科技描述均可以出现。
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION: 自定义种族与社群 -->
+    <section class="py-24 px-6 relative z-10 bg-dark-900/60 border-t border-white/5">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-16 reveal">
+                <h2 class="font-title font-black text-4xl md:text-6xl text-white mb-4 tracking-wide">自定义种族与社群</h2>
+                <p class="text-gray-500 italic mb-6">（译者注：该部分是替换核心规则中的“选择种族&社群”部分，基本都是原版的换皮）</p>
+                <p class="text-lg md:text-xl text-gray-300 max-w-4xl mx-auto leading-relaxed">
+                    从以下特性中选取三项，以帮助你展现一些关于自己的有趣特征。如果另一名玩家选择了相同的“奇异事实”，尝试将其融入你们之间的关联之中，或改选其他选项。
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Data Card 1 -->
+                <div class="glass-panel p-6 rounded-2xl border-l-2 border-neon-cyan hover:bg-white/5 transition reveal">
+                    <p class="text-lg text-gray-300 leading-relaxed">
+                        <span class="text-neon-cyan font-black block mb-2 text-xl">杂技能手 Acrobatic Expert：</span>当你进行一次敏捷掷骰时，你可以花费 2 点希望来重掷你的希望骰。
+                    </p>
+                </div>
+                <!-- Data Card 2 -->
+                <div class="glass-panel p-6 rounded-2xl border-l-2 border-neon-cyan hover:bg-white/5 transition reveal">
+                    <p class="text-lg text-gray-300 leading-relaxed">
+                        <span class="text-neon-cyan font-black block mb-2 text-xl">随机应变 Adaptability：</span>当你在运用某个经历进行的掷骰失败时，你可以标记 1 压力点进行重掷。
+                    </p>
+                </div>
+                <!-- Data Card 3 -->
+                <div class="glass-panel p-6 rounded-2xl border-l-2 border-neon-cyan hover:bg-white/5 transition reveal">
+                    <p class="text-lg text-gray-300 leading-relaxed">
+                        <span class="text-neon-cyan font-black block mb-2 text-xl">两栖 Amphibious：</span>你天生能够在水下呼吸和移动。
+                    </p>
+                </div>
+                <!-- Data Card 4 -->
+                <div class="glass-panel p-6 rounded-2xl border-l-2 border-neon-orange hover:bg-white/5 transition reveal">
+                    <p class="text-lg text-gray-300 leading-relaxed">
+                        <span class="text-neon-orange font-black block mb-2 text-xl">元素喷吐 Elemental Spit：</span>选择一种元素。你可以对邻近范围内的一个或一群目标使用此喷吐，将其视为一种使用你的熟练值造成 d8 点魔法伤害的本能武器。
+                    </p>
+                </div>
+                <!-- Data Card 5 -->
+                <div class="glass-panel p-6 rounded-2xl border-l-2 border-neon-orange hover:bg-white/5 transition reveal">
+                    <p class="text-lg text-gray-300 leading-relaxed">
+                        <span class="text-neon-orange font-black block mb-2 text-xl">危险感应 Danger Sense：</span>每次休息一次，标记 1 压力点，强制一个敌人重掷对你或你邻近范围内的盟友的攻击。
+                    </p>
+                </div>
+                <!-- Data Card 6 -->
+                <div class="glass-panel p-6 rounded-2xl border-l-2 border-neon-orange hover:bg-white/5 transition reveal">
+                    <p class="text-lg text-gray-300 leading-relaxed">
+                        <span class="text-neon-orange font-black block mb-2 text-xl">死亡回声 Death Echoes：</span>触摸一具最近死亡的尸体，你可以标记 1 压力点，从尸体中提取一个与你选择的特定情绪或感觉相关的记忆。
+                    </p>
+                </div>
+            </div>
+
+            <!-- 去掉了省略号 -->
+            <div class="mt-10 text-center reveal">
+                <div class="inline-flex items-center gap-3 px-6 py-2 rounded-full border border-gray-700 bg-dark-800/80 text-gray-400">
+                    <div class="flex gap-1">
+                        <div class="w-1.5 h-1.5 bg-gray-500 rounded-full animate-bounce"></div>
+                        <div class="w-1.5 h-1.5 bg-gray-500 rounded-full animate-bounce delay-75"></div>
+                        <div class="w-1.5 h-1.5 bg-gray-500 rounded-full animate-bounce delay-150"></div>
+                    </div>
+                    <span class="text-lg tracking-widest">更多的请查看FVTT</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION: 更多职业 -->
+    <section class="py-24 px-6 relative z-10 border-t border-white/5">
+        <div class="max-w-5xl mx-auto">
+            <div class="text-center mb-16 reveal">
+                <h2 class="font-title font-black text-4xl md:text-6xl text-white glow-text-orange mb-4 tracking-wide">更多职业</h2>
+            </div>
+
+            <!-- 调整为 2行2列 (sm:grid-cols-2) 网格 -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 md:gap-10">
+                <!-- 刺客，已添加超链接并去除英文 -->
+                <a href="https://my.feishu.cn/wiki/CPOXwcZuOiO0trk9sVMcPy9Lnzb?from=from_parent_docx" target="_blank" class="block group relative overflow-hidden rounded-2xl glass-panel aspect-[3/4] cursor-pointer reveal">
+                    <img src="https://i.ibb.co/4w9tGF1Q/image-2.webp" alt="刺客" class="absolute inset-0 w-full h-full object-cover object-top transition duration-700 group-hover:scale-110 filter brightness-75 group-hover:brightness-100">
+                    <div class="absolute inset-0 bg-gradient-to-t from-dark-900 via-dark-900/40 to-transparent opacity-90"></div>
+                    <div class="absolute bottom-0 left-0 w-full p-6 transform translate-y-2 transition duration-500 group-hover:translate-y-0">
+                        <div class="w-8 h-1 bg-neon-cyan mb-3 transition-all duration-300 group-hover:w-16 shadow-[0_0_10px_#00f3ff]"></div>
+                        <h3 class="font-title font-black text-4xl md:text-5xl text-white tracking-widest">刺客</h3>
+                    </div>
+                </a>
+
+                <!-- 女巫，已添加超链接并去除英文 -->
+                <a href="https://my.feishu.cn/wiki/RUt1wZKpriM9t6kOILLcXiE1nGb?from=from_parent_docx" target="_blank" class="block group relative overflow-hidden rounded-2xl glass-panel aspect-[3/4] cursor-pointer reveal">
+                    <img src="https://i.ibb.co/YKfNLQD/image-3.webp" alt="女巫" class="absolute inset-0 w-full h-full object-cover object-top transition duration-700 group-hover:scale-110 filter brightness-75 group-hover:brightness-100">
+                    <div class="absolute inset-0 bg-gradient-to-t from-dark-900 via-dark-900/40 to-transparent opacity-90"></div>
+                    <div class="absolute bottom-0 left-0 w-full p-6 transform translate-y-2 transition duration-500 group-hover:translate-y-0">
+                        <div class="w-8 h-1 bg-purple-500 mb-3 transition-all duration-300 group-hover:w-16 shadow-[0_0_10px_#a855f7]"></div>
+                        <h3 class="font-title font-black text-4xl md:text-5xl text-white tracking-widest">女巫</h3>
+                    </div>
+                </a>
+
+                <!-- 格斗家，已添加超链接并去除英文 -->
+                <a href="https://my.feishu.cn/wiki/TvE3wQoC7iPeiDkIMYbcDAxdn3x?from=from_parent_docx" target="_blank" class="block group relative overflow-hidden rounded-2xl glass-panel aspect-[3/4] cursor-pointer reveal">
+                    <img src="https://i.ibb.co/23s6gnY7/image-4.webp" alt="格斗家" class="absolute inset-0 w-full h-full object-cover object-top transition duration-700 group-hover:scale-110 filter brightness-75 group-hover:brightness-100">
+                    <div class="absolute inset-0 bg-gradient-to-t from-dark-900 via-dark-900/40 to-transparent opacity-90"></div>
+                    <div class="absolute bottom-0 left-0 w-full p-6 transform translate-y-2 transition duration-500 group-hover:translate-y-0">
+                        <div class="w-8 h-1 bg-yellow-500 mb-3 transition-all duration-300 group-hover:w-16 shadow-[0_0_10px_#eab308]"></div>
+                        <h3 class="font-title font-black text-4xl md:text-5xl text-white tracking-widest">格斗家</h3>
+                    </div>
+                </a>
+
+                <!-- 血猎人，已添加超链接并去除英文 -->
+                <a href="https://my.feishu.cn/wiki/R7VawcpOUiBmDAkJT0EcMabqnvh?from=from_parent_docx" target="_blank" class="block group relative overflow-hidden rounded-2xl glass-panel aspect-[3/4] cursor-pointer reveal">
+                    <img src="https://i.ibb.co/Y7Pv6Wdn/image.png" alt="血猎人" class="absolute inset-0 w-full h-full object-cover object-top transition duration-700 group-hover:scale-110 filter brightness-75 group-hover:brightness-100">
+                    <div class="absolute inset-0 bg-gradient-to-t from-dark-900 via-dark-900/40 to-transparent opacity-90"></div>
+                    <div class="absolute bottom-0 left-0 w-full p-6 transform translate-y-2 transition duration-500 group-hover:translate-y-0">
+                        <div class="w-8 h-1 bg-neon-red mb-3 transition-all duration-300 group-hover:w-16 shadow-[0_0_10px_#ff003c]"></div>
+                        <h3 class="font-title font-black text-4xl md:text-5xl text-white tracking-widest">血猎人</h3>
+                    </div>
+                </a>
+            </div>
+
+            <!-- 新增文本与链接 -->
+            <div class="mt-16 text-center reveal">
+                <a href="https://lcnw6r5edbf2.feishu.cn/wiki/NwsAwL4JpiFsx2kXhCwc5FzWnsh" target="_blank" class="inline-block px-8 py-5 bg-dark-900/80 rounded-full border border-neon-red/50 text-white text-xl md:text-2xl font-bold hover:bg-neon-red/10 transition duration-300 shadow-[0_0_15px_rgba(255,0,60,0.1)] hover:shadow-[0_0_30px_rgba(255,0,60,0.4)]">
+                    增加的额外两个领域鲜血和恐怖于此查看
+                </a>
+            </div>
+            
+        </div>
+    </section>
+
+    <!-- Section 4: 扎营与休整 -->
+    <section class="py-24 px-6 relative z-10 bg-dark-800/40 border-t border-b border-white/5">
+        <div class="max-w-7xl mx-auto">
+            <div class="reveal mb-16">
+                <h2 class="font-title font-black text-5xl md:text-7xl text-white glow-text-orange mb-4 tracking-wider">扎营 </h2>
+                <h3 class="text-2xl md:text-3xl text-neon-orange font-black mb-8 font-title tracking-wide">探索的额外休整行动</h3>
+                
+                <div class="glass-panel p-6 md:p-10 rounded-2xl text-lg md:text-xl leading-relaxed text-gray-300 space-y-6">
+                    <p>旅行时，玩家必须设立营地才可以进行长休。设立营地需要以下三种要素：食物、水和住所。当所有要求都满足时，你的营地即准备完毕以供休息，且你可以进行额外的休整行动。有两种方法可以使你满足设立营地的要求：</p>
+                    
+                    <div class="pl-0 md:pl-6 space-y-6">
+                        <p><span class="text-white font-bold block mb-2">花费金币：</span>在这种情况下，金币会被概括成你为长途跋涉所携带的物资。你可以花费数量等同于你的位阶的数把金币以满足一项要求。你可以自由叙述这些物资如何使用。</p>
+                        <p><span class="text-white font-bold block mb-2">使用动作：</span>任何具有相关经历、职业特性或是领域卡能力的玩家可以进行一次动作掷骰以满足一项扎营需求。每名玩家在一次扎营中只能进行一次动作掷骰。当结果大于等于20时，你的掷骰成功并描述你如何成功满足该项需求。</p>
+                    </div>
+                    
+                    <p class="text-neon-orange font-bold mt-8 border-l-4 border-neon-orange pl-4 bg-neon-orange/10 py-3 pr-3 rounded-r-lg">
+                        若未能满足这些要求，不管你在休息中度过了多长时间，你只能视为进行了短休。如果你长时间不进行长休，gm可描述你陷入了脆弱状态，直至你进行了长休。
+                    </p>
+                </div>
+            </div>
+
+            <div class="reveal mt-20">
+                <h3 class="font-title font-black text-4xl md:text-5xl text-white mb-10 text-center tracking-wide">额外长休选项</h3>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
+                    
+                    <div class="glass-panel p-6 md:p-8 rounded-2xl hover:-translate-y-2 transition duration-300 hover:border-white/20 hover:shadow-[0_10px_30px_rgba(255,255,255,0.1)]">
+                        <h4 class="font-title font-black text-3xl text-neon-cyan mb-4 flex items-center gap-3">
+                            <span class="w-2 h-8 bg-neon-cyan inline-block"></span>
+                            磨练技能
+                        </h4>
+                        <p class="text-lg text-gray-300 leading-relaxed">
+                            你打磨武器、与训练假人或是同伴对练，研读你的魔法文本，你获得1d4个强击指示物。当你造成伤害时，你可以花费1个强击指示物使你的伤害等级上升一级。当你进行长休时，移除所有未使用的指示物。
+                        </p>
+                    </div>
+
+                    <div class="glass-panel p-6 md:p-8 rounded-2xl hover:-translate-y-2 transition duration-300 hover:border-white/20 hover:shadow-[0_10px_30px_rgba(255,255,255,0.1)]">
+                        <h4 class="font-title font-black text-3xl text-neon-orange mb-4 flex items-center gap-3">
+                            <span class="w-2 h-8 bg-neon-orange inline-block"></span>
+                            保持警惕
+                        </h4>
+                        <p class="text-lg text-gray-300 leading-relaxed">
+                            你放弃了一些休息时间，以确保你的小队获得安全的喘息。当你警戒时，gm无法花费恐惧点以召唤敌人、创造复杂情景或是激活环境/敌人特性。
+                        </p>
+                    </div>
+
+                    <div class="glass-panel p-6 md:p-8 rounded-2xl hover:-translate-y-2 transition duration-300 hover:border-white/20 hover:shadow-[0_10px_30px_rgba(255,255,255,0.1)] md:col-span-2 lg:col-span-1">
+                        <h4 class="font-title font-black text-3xl text-yellow-500 mb-4 flex items-center gap-3">
+                            <span class="w-2 h-8 bg-yellow-500 inline-block"></span>
+                            营火故事
+                        </h4>
+                        <p class="text-lg text-gray-300 leading-relaxed">
+                            你讲述了一个故事、一段个人经历、一个虚构作品或是一个神话，你在讲述的过程中获得了勇气。你的动作掷骰获得等同于你位阶数的加值，直至你的下一次短休或长休。
+                        </p>
+                    </div>
+
+                    <div class="glass-panel p-6 md:p-8 rounded-2xl hover:-translate-y-2 transition duration-300 hover:border-white/20 hover:shadow-[0_10px_30px_rgba(255,255,255,0.1)] md:col-span-2 lg:col-span-1 border-t-2 border-t-neon-green/30">
+                        <h4 class="font-title font-black text-3xl text-neon-green mb-4 flex items-center gap-3">
+                            <span class="w-2 h-8 bg-neon-green inline-block"></span>
+                            沟通自然
+                        </h4>
+                        <p class="text-lg text-gray-300 leading-relaxed mb-4">
+                            你阅读星象、聆听风声、与树木交谈或是其他类似的活动。直至你下一次长休，选择下列好处中的一项：
+                        </p>
+                        <div class="text-lg text-gray-300 space-y-2">
+                            <p>- 动物能够理解你（但你不能直接理解动物的意图，除非你成功进行一次难度15的本能掷骰）</p>
+                            <p>- 在直接对抗环境难度的掷骰中获得优势</p>
+                            <p>- 获得一项临时经历：自然的祝福</p>
+                            <p>- 获得一张临时的贤者领域卡，等级小于等于你的位阶</p>
+                        </div>
+                    </div>
+
+                    <div class="glass-panel p-6 md:p-8 rounded-2xl hover:-translate-y-2 transition duration-300 hover:border-white/20 hover:shadow-[0_10px_30px_rgba(255,255,255,0.1)] md:col-span-2">
+                        <h4 class="font-title font-black text-3xl text-white mb-4 flex items-center gap-3">
+                            <span class="w-2 h-8 bg-white inline-block"></span>
+                            烹饪晚饭
+                        </h4>
+                        <p class="text-lg text-gray-300 leading-relaxed mb-6">
+                            （此休整行动每次扎营只能使用一次）你使用你的物资，以及一些本地动植物食材烹饪了一顿大餐。进行一次本能或知识掷骰：
+                        </p>
+                        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                            <div class="bg-dark-900/50 p-6 rounded-xl border border-neon-orange/20">
+                                <p class="text-neon-orange font-bold text-xl mb-3">- 15或更高：调味至完美</p>
+                                <div class="text-lg text-gray-300 space-y-3">
+                                    <p>  - 每名玩家获得一份特殊餐食，使用后恢复1d4生命点</p>
+                                    <p>  - 当你上菜时，你可以进行描述。每有一条令人回味的描述，你可以将特殊餐食的骰子上升一级，最高至d12。这份餐食的可使用状态持续至你进行一次长休。</p>
+                                </div>
+                            </div>
+                            <div class="bg-dark-900/50 p-6 rounded-xl border border-gray-600/50">
+                                <p class="text-gray-300 font-bold text-xl mb-3">- 14或更低：烧糊但可食</p>
+                                <div class="text-lg text-gray-400 space-y-3">
+                                    <p>  - 每名玩家恢复1生命点，清除1压力点，获得1希望点。</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 5: 侦查 (终端机界面) -->
+    <section class="py-24 px-6 relative z-10 pb-40">
+        <div class="max-w-5xl mx-auto reveal">
+            
+            <div class="glass-panel rounded-[2rem] overflow-hidden border border-neon-cyan/20 shadow-[0_0_40px_rgba(0,243,255,0.1)]">
+                <div class="bg-dark-900/80 px-8 py-4 border-b border-neon-cyan/20 flex items-center justify-between">
+                    <h2 class="font-title font-black text-4xl text-neon-cyan tracking-widest">侦查</h2>
+                    <div class="flex gap-2">
+                        <div class="w-3 h-3 rounded-full bg-neon-cyan/50 animate-pulse"></div>
+                        <div class="w-3 h-3 rounded-full bg-neon-cyan/50 animate-pulse delay-75"></div>
+                        <div class="w-3 h-3 rounded-full bg-neon-cyan/50 animate-pulse delay-150"></div>
+                    </div>
+                </div>
+
+                <div class="p-8 md:p-12 space-y-8 bg-gradient-to-b from-dark-800 to-dark-900">
+                    <div class="text-lg md:text-xl text-gray-300 leading-relaxed space-y-4">
+                        <p>（此行动不占用长休选项，但只能一个人进行执行）你或登高望远，或孤身探索，或上网冲浪，或派出无人机，无论哪种你通过自己的手段试图探明周围一片未探明区域的具体情况。</p>
+                        <p class="text-white font-bold">你进行一段关于这片区域的描述，同时需要进行一次行动掷骰</p>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 mt-8">
+                        <div class="p-6 border border-neon-green/30 bg-neon-green/5 rounded-xl relative overflow-hidden group hover:bg-neon-green/10 transition">
+                            <div class="absolute left-0 top-0 bottom-0 w-1 bg-neon-green"></div>
+                            <p class="text-lg text-gray-200">
+                                <span class="text-neon-green font-bold block mb-2 text-xl">希望成功：</span>
+                                这片区域如你所说的一样，如果GM试图改变这里的环境，需要额外付出一点恐惧点。
+                            </p>
+                        </div>
+
+                        <div class="p-6 border border-yellow-500/30 bg-yellow-500/5 rounded-xl relative overflow-hidden group hover:bg-yellow-500/10 transition">
+                            <div class="absolute left-0 top-0 bottom-0 w-1 bg-yellow-500"></div>
+                            <p class="text-lg text-gray-200">
+                                <span class="text-yellow-500 font-bold block mb-2 text-xl">恐惧成功：</span>
+                                这片区域大部分和你所说的一样，但其中存在着一个你尚未发现的麻烦。
+                            </p>
+                        </div>
+
+                        <div class="p-6 border border-gray-400/30 bg-gray-400/5 rounded-xl relative overflow-hidden group hover:bg-gray-400/10 transition">
+                            <div class="absolute left-0 top-0 bottom-0 w-1 bg-gray-400"></div>
+                            <p class="text-lg text-gray-200">
+                                <span class="text-gray-300 font-bold block mb-2 text-xl">希望失败：</span>
+                                你没有成功探索这片区域，但幸运的是你安全返回营地，你依旧可以执行其他休整选项并享受其好处。
+                            </p>
+                        </div>
+
+                        <div class="p-6 border border-neon-red/40 bg-neon-red/5 rounded-xl relative overflow-hidden group hover:bg-neon-red/10 transition">
+                            <div class="absolute left-0 top-0 bottom-0 w-1 bg-neon-red"></div>
+                            <p class="text-lg text-gray-200">
+                                <span class="text-neon-red font-bold block mb-2 text-xl">恐惧失败：</span>
+                                你没有成功探索这片区域，还倒霉的遭遇了些问题，你无法执行其他休整选项，也无法享受队友休整给你带来的好处。
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+    </section>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.15
+            };
+
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                    }
+                });
+            }, observerOptions);
+
+            document.querySelectorAll('.reveal').forEach(element => {
+                observer.observe(element);
+            });
+        });
+    </script>
+</body>
+</html>
